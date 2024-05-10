@@ -1,33 +1,39 @@
 package tests;
 
+
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 
+import io.qameta.allure.Allure;
 import pages.GooglePage;
-import utils.Driver;
-
-import org.testng.Assert;
+import org.testng.*;
 import org.testng.annotations.*;
 
 
-public class GoogleSearchTest {
+public class GoogleSearchTest extends BaseTest {
+	List<String> epamLinksListExpected = Arrays.asList("Вакансії", "Навчання з ЕРАМ", "Університетські програми",
+			"EPAM Україна", "Контакти");
 	private static final Logger logger = Logger.getLogger(GooglePage.class);
 
-	@Test(priority = 1)
+	@Override
+	protected String getBrowserName() {
+		return "firefox";
+	}
+
+	@Test
 	public void searchGoogle() {
-		GooglePage googlePage = new GooglePage();
+		GooglePage googlePage = new GooglePage(getDriver());
 		googlePage.openGoogle();
 		googlePage.passValueIntoSearchField("Epam");
 		googlePage.clickOnSearch();
 		Assert.assertTrue(googlePage.verifyThatEpamSiteIsPresent());
 	}
 
-	@Test(priority = 2)
+	@Test
 	public void searchInputFieldContainsSearchWord() {
-		GooglePage googlePage = new GooglePage();
+		GooglePage googlePage = new GooglePage(getDriver());
 		googlePage.openGoogle();
 		googlePage.passValueIntoSearchField("Epam");
 		googlePage.clickOnSearch();
@@ -35,44 +41,37 @@ public class GoogleSearchTest {
 		Assert.assertEquals(searchWord, "Epam");
 	}
 
-	@Test(priority = 3)
+	@Test
 	public void countListInEpam() {
-		GooglePage googlePage = new GooglePage();
+		GooglePage googlePage = new GooglePage(getDriver());
 		googlePage.openGoogle();
 		googlePage.passValueIntoSearchField("Epam");
 		googlePage.clickOnSearch();
-		int sizeOfListOnPage = googlePage.countListValues();
-		Assert.assertEquals(sizeOfListOnPage, 5);
+		int sizeOfListOnPageActual = googlePage.countListValues();
+		Assert.assertEquals(sizeOfListOnPageActual, epamLinksListExpected.size());
 	}
 
-	@Test(dependsOnMethods = {"countListInEpam"},priority = 4)
+	@Test
 	public void verifyListInEpam() {
-		GooglePage googlePage = new GooglePage();
-		List<String> epamExpectedLinksList = Arrays.asList("Вакансії", "Навчання з ЕРАМ", "Університетські програми",
-				"EPAM Україна", "Контакти");
+		GooglePage googlePage = new GooglePage(getDriver());
 		googlePage.openGoogle();
 		googlePage.passValueIntoSearchField("Epam");
 		googlePage.clickOnSearch();
-		List<WebElement> epamList = googlePage.getEpamLinksList();
-		googlePage.printListValues();
-		List<String> webElementTextEpamList = epamList.stream().map(WebElement::getText).collect(Collectors.toList());
-		Assert.assertEquals(webElementTextEpamList, epamExpectedLinksList, "Lists are not equal");
+		List<WebElement> epamLinksList = googlePage.getEpamLinksList();
+		List<String> epamLinksListTextActual = epamLinksList.stream().map(WebElement::getText).collect(
+				Collectors.toList());
 		logger.info("Verify values in the EPAM menu");
+		Assert.assertEquals(epamLinksListTextActual, epamLinksListExpected, "Lists are not equal");
 	}
 
-	@Test(priority = 5)
+	@Test
 	public void searchGoogleWithEmptyText() {
-		GooglePage googlePage = new GooglePage();
+		GooglePage googlePage = new GooglePage(getDriver());
 		googlePage.openGoogle();
 		googlePage.passValueIntoSearchField("");
 		googlePage.clickOnSearch();
 		String url = googlePage.getCurrentUrl();
 		Assert.assertEquals(url, "https://www.google.com/");
 		logger.info("Verify that Google homepage is still opened");
-	}
-
-	@AfterClass
-	public void cleanup() {
-		Driver.close();
 	}
 }
