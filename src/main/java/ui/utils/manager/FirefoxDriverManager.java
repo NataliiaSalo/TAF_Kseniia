@@ -1,10 +1,10 @@
-package utils.Manager;
+package ui.utils.manager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
-import utils.Factory;
+import ui.utils.Factory;
 
 public class FirefoxDriverManager implements Factory {
 

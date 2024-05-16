@@ -1,6 +1,6 @@
-package utils.Manager;
+package ui.utils.manager;
 
-import utils.Factory;
+import ui.utils.Factory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;

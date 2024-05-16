@@ -1,8 +1,6 @@
-package pages;
+package ui.pages;
 
-//import utils.Driver;
 import io.qameta.allure.Step;
-import utils.DriverFactory;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Keys;
