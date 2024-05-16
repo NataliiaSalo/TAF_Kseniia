@@ -9,13 +9,12 @@ import com.github.javafaker.Faker;
 import api.endpoints.UserEndPoints;
 import api.payload.User;
 import io.restassured.response.Response;
-import listener.TestListener;
 
 
 public class UserTest {
 	Faker faker;
 	User userPayload;
-	private static final Logger logger = Logger.getLogger(TestListener.class);
+	private static final Logger logger = Logger.getLogger(UserTest.class);
 
 	@BeforeClass
 	public void setupDate() {

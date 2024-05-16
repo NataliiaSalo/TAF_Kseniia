@@ -1,6 +1,7 @@
 package api.endpoints;
 
 import static io.restassured.RestAssured.given;
+
 import api.payload.User;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
