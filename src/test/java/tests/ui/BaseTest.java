@@ -1,4 +1,4 @@
-package tests;
+package tests.ui;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +12,9 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.testng.*;
 import org.testng.annotations.*;
-
 import io.qameta.allure.Attachment;
-import utils.DriverFactory;
+import ui.utils.DriverFactory;
+
 
 public class BaseTest {
 	protected WebDriver driver;

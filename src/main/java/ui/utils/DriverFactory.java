@@ -1,10 +1,10 @@
-package utils;
+package ui.utils;
 
 import java.util.concurrent.TimeUnit;
 
-import utils.Manager.ChromeDriverManager;
-import utils.Manager.FirefoxDriverManager;
-import utils.Manager.EdgeDriverManager;
+import ui.utils.manager.ChromeDriverManager;
+import ui.utils.manager.FirefoxDriverManager;
+import ui.utils.manager.EdgeDriverManager;
 
 import org.openqa.selenium.WebDriver;
 
